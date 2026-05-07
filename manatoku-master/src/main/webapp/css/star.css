@@ -1,0 +1,322 @@
+@charset "UTF-8";
+/* --- 기본 설정 --- */
+/* * {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: "Lucida Sans Unicode", sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #ffffff; 기본 배경색
+}
+ */
+/* --- [1] 채팅창 전체 컨테이너 --- */
+/*.chat-window { */
+.chat-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: transparent; /* 배경 레이어가 보여야 하므로 투명 */
+    transition: background 0.5s ease;
+    border-radius: 12px;
+}
+
+/* --- [2] 은하수 테마 전용 레이어 (평소 숨김) --- */
+/* 1. 배경 레이어들을 가장 뒤로 보냅니다 */
+.galaxy-bg, .stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* 가장 낮은 숫자 */
+    pointer-events: none; /* 배경이 클릭을 방해하지 않도록 설정 */
+}
+
+/* 2. 채팅 메시지 영역과 헤더를 배경 위로 올립니다 */
+.chat-header, .chat-message-area {
+    position: relative;
+    z-index: 5;
+}
+
+/* 3. 입력창 영역을 가장 위로 올립니다 */
+.chat-input-area {
+    position: relative;
+    z-index: 10; /* 배경보다 확실히 높은 숫자 */
+    flex-shrink: 0; /* 테마 적용 시 크기가 줄어들지 않도록 고정 */
+    background: white; /* 기본 상태 배경색 */
+}
+
+/* 4. 은하수 테마일 때 입력창 설정 */
+.theme-galaxy .chat-input-area {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* .theme-galaxy 클래스 활성 시 스타일 */
+.theme-galaxy .galaxy-bg {
+    display: block;
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+/* 1. 완전한 흰색 배경 */
+    background: #ffffff !important;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.theme-galaxy .galaxy-bg::before {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    animation: nebula-flow 15s infinite linear;
+    z-index: 1;
+}
+
+.theme-galaxy .stars {
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1; /* 메시지보다는 뒤에 배치 */
+   
+ background-image:
+        radial-gradient(3px 3px at 25px 35px, #ffffff 2px, transparent 100%),
+        radial-gradient(2px 2px at 50px 80px, #fff5f5 1.5px, transparent 100%),
+        radial-gradient(2.5px 2.5px at 110px 150px, #ffffff 2px, transparent 100%),
+        /* 약간의 반짝임 효과를 위한 글로우 별 추가 */
+        radial-gradient(1.5px 1.5px at 180px 210px, #ffffff 100%, transparent 100%);
+    background-size: 250px 250px;
+    animation: stars-move 100s infinite linear;
+}
+
+/* 유성(Shooting Star) 설정 */
+.theme-galaxy .shooting-star {
+    display: block;
+    position: absolute;
+    top: -10%; /* 화면 밖 상단 시작 */
+    right: -10%; /* 화면 밖 우측 시작 */
+    width: 5px; height: 5px;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+    opacity: 0;
+    transform: rotate(-45deg);
+    animation: shooting-star-move 5s linear infinite;
+}
+
+/* 별똥별 꼬리 추가 */
+.theme-galaxy .shooting-star::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    width: 180px;
+    height: 2px;
+    background: linear-gradient(to right, #fff, transparent);
+    transform: translateY(-50%);
+}
+
+/* 개별 별똥별 설정 (시간 차 및 위치 분산) */
+.theme-galaxy .shooting-star:nth-child(2) {
+    top: -5%; right: 20%;
+    animation-delay: 2s;
+}
+
+.theme-galaxy .shooting-star:nth-child(3) {
+    top: 15%; right: 40%;
+    animation-delay: 4.5s;
+    animation-duration: 4s;
+}
+
+.theme-galaxy .shooting-star:nth-child(4) {
+    top: -15%; right: 60%;
+    animation-delay: 7s;
+}
+
+.theme-galaxy .shooting-star:nth-child(5) {
+    top: 10%; right: 80%;
+    animation-delay: 1.5s;
+}
+
+.theme-galaxy .chat-message-area {
+    background: transparent !important;
+    position: relative;
+    z-index: 2;
+}
+/* --- [3] 메시지 표시 영역 (배경보다 위) --- */
+.chat-content {
+    position: relative;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    z-index: 10;
+}
+
+/* 메시지 말풍선 기본 스타일 */
+.msg {
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    max-width: 60%;
+    padding: 12px 18px;
+    margin: 10px 0;
+    border-radius: 15px 15px 15px 0;
+    align-self: flex-start;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 내 메시지 스타일 */
+.msg.me {
+    background: #4a90e2;
+    color: #fff;
+    border-radius: 15px 15px 0 15px;
+    align-self: flex-end;
+}
+
+/* --- 은하수 테마 전환 시 스타일 (중요) --- */
+
+/* [1] 테마 적용 시 상대방 말풍선 (연회색) */
+.theme-galaxy .message-bubble {
+    background: #f3f4f6 !important;
+    color: #000000 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: none !important;
+}
+
+/* [2] 테마 적용 시 내 말풍선 (남색 그라데이션) */
+.theme-galaxy .message-bubble.me {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* [3] 테마 적용 시 전송 버튼 (남색 그라데이션) */
+.theme-galaxy #chatSendBtn {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+    color: #ffffff !important;
+}
+
+/* [4] 테마 적용 시 입력창 (흰색 배경/검정 글씨) */
+.theme-galaxy #chatInputArea {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* --- [4] 입력창 영역 --- */
+
+/*.chat-input-area {
+
+    position: relative;
+
+    z-index: 10;
+
+    flex-shrink: 0;
+
+    background: white;
+
+} */
+
+
+
+.theme-galaxy .chat-input-area {
+
+    background: rgba(0, 0, 0, 0.2);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+
+
+#msg-in {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+
+    color: #ffffff !important;
+
+}
+
+
+
+#send {
+
+    padding: 0 20px;
+
+    border-radius: 8px;
+
+    border: none;
+
+    background: #6a82fb;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+
+
+/* --- [5] 스크롤바 커스텀 --- */
+.chat-content::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-content::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.2);
+    border-radius: 10px;
+}
+.theme-galaxy .chat-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* --- [6] 애니메이션 정의 --- */
+@keyframes nebula-flow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes stars-move {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 500px; }
+}
+
+
+/* 별 깜빡임: 크기를 키웠으므로 scale 변화를 살짝 주어 생동감 추가 */
+@keyframes sparkle-flash {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes shooting-star-move {
+    0% { background-position: 0 0; opacity: 1; }
+    20% { background-position: 800px 400px; opacity: 1; }
+    60% { background-position: 1000px 500px; opacity: 0.8; }
+    100% { background-position: 1050px 525px; opacity: 0; }
+}
+
+@keyframes tail-fade {
+    0% { width: 0; opacity: 0; }
+    20% { width: 200px; opacity: 1; }
+    60% { width: 300px; opacity: 0.8; }
+    100% { width: 400px; opacity: 0; }
+}

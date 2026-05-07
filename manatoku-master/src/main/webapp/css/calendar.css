@@ -1,0 +1,156 @@
+@charset "UTF-8";
+
+/* 기본 설정 */
+/* body {
+    font-family: Arial, sans-serif;
+    background-color: #fcfcfc;
+} */
+
+#calMain {
+	flex: 1;
+    width: 100%;    /* 가로 꽉 채우기 */
+    display: flex;
+    flex-direction: column;
+}
+#calendar a {
+	text-decoration: none !important;
+}
+
+/* --- 날짜 색상 설정 --- */
+/* 일요일 */
+.fc-day-sun .fc-col-header-cell-cushion, .fc-day-sun .fc-daygrid-day-number
+	{
+	color: #ff0000 !important;
+}
+
+/* 토요일 */
+.fc-day-sat .fc-col-header-cell-cushion, .fc-day-sat .fc-daygrid-day-number
+	{
+	color: #ff0000 !important;
+}
+
+/* --- 공휴일 스타일 (박스 제거 + 빨간 글자) --- */
+.fc-event.holiday-event, .fc-daygrid-event.holiday-event {
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.holiday-event .fc-event-title, .holiday-event .fc-event-main {
+	color: #ff0000 !important;
+	font-weight: bold !important;
+}
+
+/* 리스트 뷰 공휴일 */
+.fc-list-event.holiday-event {
+	background-color: #fff0f0 !important;
+}
+
+.fc-list-event.holiday-event .fc-list-event-title, .fc-list-event.holiday-event .fc-list-event-dot
+	{
+	color: #ff0000 !important;
+	border-color: #ff0000 !important;
+}
+
+/* --- 🔥 캘린더 칸 크기 고정 (핵심 수정 부분) --- */
+
+/* 1. 칸의 높이를 부모가 할당한 영역에 꽉 맞춤 (px 고정 해제) */
+.fc .fc-daygrid-day-frame {
+	height: 100% !important;
+	min-height: 0 !important; /* 내부 콘텐츠가 밀어내는 것 방지 */
+	overflow: hidden !important; /* 일정 폭주 시 칸 늘어남 방지 */
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+/* 2. 일정 영역이 남은 높이를 모두 차지하게 하여 비율 유지 */
+.fc-daygrid-day-events {
+	flex-grow: 1 !important;
+	overflow: hidden !important;
+}
+
+/* 3. 테이블 레이아웃 고정 (너비 유지) */
+.fc-scrollgrid-sync-table {
+	table-layout: fixed !important;
+}
+
+/* 4. 더보기(+n) 팝업 레이어 순위 */
+.fc-popover {
+	z-index: 1060 !important;
+}
+
+/* 5. (선택) 일정이 너무 다닥다닥 붙지 않게 여백 조정 */
+.fc-daygrid-event-harness {
+	margin-bottom: 1px !important;
+}
+
+#callendarPanel {
+	margin: 0;
+	padding: 40px 10px;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	background-color: #fcfcfc;
+}
+
+#calendar {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+/* 주말(토/일) */
+.fc-day-sun .fc-daygrid-day-number, .fc-day-sun .fc-col-header-cell-cushion,
+	.fc-day-sat .fc-daygrid-day-number, .fc-day-sat .fc-col-header-cell-cushion
+	{
+	color: #ff0000 !important;
+}
+
+/* ============================
+           🔥 공휴일 이벤트 전용 스타일
+           ============================ */
+
+/* 파란 이벤트 박스 완전 제거 */
+.fc-event.holiday-event, .fc-daygrid-event.holiday-event, .fc-v-event.holiday-event,
+	.fc-h-event.holiday-event {
+	background: none !important;
+	background-color: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+/* 공휴일 글자 빨간색 + 볼드 */
+.holiday-event .fc-event-title, .holiday-event .fc-event-main {
+	color: #ff0000 !important;
+	font-weight: bold !important;
+}
+
+/* 날짜 숫자도 빨간색 (공휴일이 있는 칸) */
+.fc-daygrid-day:has(.holiday-event)
+        .fc-daygrid-day-number {
+	color: #ff0000 !important;
+	font-weight: bold;
+}
+
+/* 리스트 뷰 공휴일 */
+.fc-list-event.holiday-event {
+	background-color: #fff0f0 !important;
+}
+
+.fc-list-event.holiday-event .fc-list-event-title, .fc-list-event.holiday-event .fc-list-event-dot
+	{
+	color: #ff0000 !important;
+	border-color: #ff0000 !important;
+}
+
+/* 모달 */
+.modal-content {
+	background: #ffffff;
+	padding: 25px;
+	border-radius: 10px;
+}
+
+.modal-content input, .modal-content textarea {
+	width: 95%;
+	padding: 8px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}

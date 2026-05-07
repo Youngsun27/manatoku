@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="dao.MemberMapper">
+  	<select id="selectMemberById" parameterType="String" resultType="model.Member">
+  		SELECT ucode,id,name,icon,pass,birth,email,phone
+  		FROM member
+  		WHERE id=#{id}
+  	</select>
+  	<insert id="insertMember" parameterType="model.Member">
+  		INSERT INTO member (ucode,id,name,pass,birth,email,phone)
+  		VALUES (member_seq.NEXTVAL,#{id},#{name},#{pass},#{birth},#{email},#{phone})
+  	</insert>
+  	
+  	<select id="checkId" parameterType="String" resultType="int">
+  		SELECT count(*)
+  		FROM member
+  		WHERE id=#{id}
+  	</select>
+  	
+	<select id="checkEmail" parameterType="String" resultType="int">
+  		SELECT count(*)
+  		FROM member
+  		WHERE email=#{email}
+  	</select>
+  	
+  	<select id="getPass" parameterType="String" resultType="String">
+  		SELECT pass
+  		FROM member
+  		WHERE id=#{id}
+  	</select>
+  	
+  	<select id="getPassWithUcode" resultType="String">
+  		SELECT pass
+  		FROM member
+  		WHERE ucode=#{ucode}
+  	</select>
+  	
+  	<delete id="deleteMember">
+  		DELETE
+  		FROM member
+  		WHERE ucode=#{ucode}
+  	</delete>
+  	
+  	<update id="updateName">
+  		UPDATE member
+  		SET name=${name}
+  		WHERE ucode=${ucode}
+  	</update>
+  		
+  </mapper>

@@ -1,0 +1,76 @@
+@charset "UTF-8";
+#friend-list-container {
+    background: white;
+    border-radius: 8px; /* 둥근 정도 완화 */
+    border: 1px solid #e0e6e6;
+    padding: 5px 0; /* 좌우 패딩 제거, 위아래만 살짝 */
+    max-height: 350px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    height: 380px;        /* 팝업창 전체 높이에 맞춰 적절히 조절하세요 */
+    overflow-x: hidden;   /* 가로 스크롤은 방지 */
+}
+
+/* 개별 친구 항목 - 패딩을 줄여서 두께 조절 */
+.friend-item {
+    display: flex;
+    align-items: center; 
+    padding: 8px 15px; /* 위아래 12px -> 8px로 축소 */
+    border-bottom: 1px solid #f5f7f7;
+    transition: background 0.1s;
+    cursor: pointer;
+}
+
+.friend-item:hover {
+    background-color: #f0faff; /* 연한 하늘색 피드백 */
+}
+
+/* 체크박스 - 크기 살짝 조절 */
+input[name="friendUcodes"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+}
+
+/* 프로필 이미지 - 45px -> 36px로 축소 */
+.icon img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    background: #f0f0f0;
+    border: 1px solid #eee;
+}
+
+/* 정보 텍스트 영역 */
+.info {
+    display: flex;
+    flex-direction: row; /* 가로로 배치해서 줄 높이 감소 */
+    align-items: baseline; /* 이름과 아이디 밑줄 맞춤 */
+    gap: 8px; /* 이름과 아이디 사이 간격 */
+}
+
+.fname {
+    font-weight: 600;
+    font-size: 0.95rem; /* 폰트 살짝 축소 */
+    color: #333;
+}
+
+.fid {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* 버튼 - 너무 뚱뚱하지 않게 */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #61c3f4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}

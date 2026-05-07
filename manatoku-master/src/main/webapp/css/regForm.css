@@ -1,0 +1,114 @@
+@charset "UTF-8";
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+.container {
+  width: min(520px, 92vw);
+  background: #fff;
+  border-radius: 16px;
+  padding: 26px 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.container table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.container td {
+  padding: 4px 8px;
+  vertical-align: middle;
+}
+
+
+.container td:first-child {
+  width: 120px;
+  text-align: left;
+  font-weight: 600;
+  color: #444;
+}
+
+
+.input-box, .input-box2, select {
+  border: 1px solid #d9dde6;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+.input-box {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.input-box2 {
+  width: 70px;  
+  height: auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+
+select {
+  font-size: 14px; 
+  padding: 10px 10px;
+}
+
+
+.input-box:focus, .input-box2:focus, select:focus {
+  border-color: #4c7dff;
+  box-shadow: 0 0 0 4px rgba(76,125,255,0.15);
+}
+
+
+.container tr:nth-child(5) td, 
+.container tr:nth-child(6) td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+.container tr:last-child td {
+  padding-top: 10px;
+}
+
+.container input[type="button"] {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+
+  background: #4c7dff;
+  color: #fff;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.container input[type="button"]:hover {
+  filter: brightness(0.95);
+}
+
+.container input[type="button"]:active {
+  transform: scale(0.99);
+}
+
+.container td input.input-box2 + input.input-box2 {
+  margin-left: 6px;
+}

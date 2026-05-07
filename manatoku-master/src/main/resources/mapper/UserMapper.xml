@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="dao.UserMapper">
+  
+  	<insert id="InsertUser" parameterType="model.User">
+  		INSERT INTO users (id,username,email,create_At)
+  		values (users_seq.NEXTVAL,#{username}, #{email},sysdate)
+  		
+  		<selectKey keyProperty="id" resultType="long" order="AFTER">
+  		SELECT users_seq.CURRVAL FROM dual
+  		</selectKey>
+  	</insert>
+  	
+  	<select id="selectUserByUno" parameterType="int" resultType="model.User">
+  		SELECT id,username,email,create_at
+  		FROM users
+  		WHERE uno = #{uno}
+  	</select>
+  	
+  	<select id="checkId" parameterType="String" resultType="int">
+  		SELECT count(id)
+  		FROM users
+  		WHERE id = #{id}
+  	</select>
+  	
+  </mapper>

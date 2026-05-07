@@ -1,0 +1,247 @@
+@charset "UTF-8";
+/* 기본 초기화 */
+
+/* 전체 크기를 규격화하기 */
+/* html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+} */
+
+/* 기본이 되는 div 설정 */
+.main-layout {
+        display: flex;
+        margin: 0 auto;
+        height: 90vh;
+        width: 60vw;
+        border: 1px solid black;
+        overflow: hidden;
+        transition: width 0.3s;
+}
+
+#mainLayout {
+        width: 60vw;
+        transition: width 0.3s;
+}
+
+#extraColumn {
+        display: none;
+}
+
+body.show-history #mainLayout {
+        width: 70vw;
+}
+
+body.show-history #extraColumn {
+        display: flex;
+}
+
+.game-board {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-width: 0;
+}
+
+.character-area {
+        height: 65%;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: hidden;
+        border-bottom: 1px solid #ccc;
+}
+
+/* 캐릭터 및 말풍선 레이아웃 */
+.scene {
+        width: 100%;
+        flex-direction: column;
+        flex-shrink: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+}
+
+.person {
+        display: block;
+        margin: 10% auto 0 auto;
+        transition: opacity 0.1s ease-in-out;
+        opacity: 0;
+        aspect-ratio: 1/1;
+        max-height: 85%;
+        object-fit: contain;
+        flex-shrink: 0;
+        width: 45%;
+        height: auto;
+}
+
+.person.active {
+        opacity: 1;
+}
+
+.chat-bubble {
+        /* 1. 위치 및 배치 */
+        position: absolute;
+        left: 50%;
+        bottom: 78%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* 2. 크기 및 간격 */
+        width: 26vw;
+        min-height: 5vw;
+        height: auto;
+        padding: 1% 3% 3% 3%;
+        box-sizing: border-box;
+        /* 3. 말풍선 배치 */
+        background: url('/manatoku/img/talk.png') no-repeat center/100% 100%;
+        /* 4. 텍스트 스타일 */
+        font-weight: bold;
+        text-align: center;
+        line-height: 1.4;
+        white-space: normal;
+        word-break: break-all;
+}
+
+/* 말풍선 비었을 때 숨기기 */
+.chat-bubble:empty, .chat-bubble:has(#chatDisplay:empty) {
+        display: none !important;
+}
+
+/* 말풍선 크기를 조절하기 위한 css */
+.chat-display {
+        display: inline-block;
+        white-space: nowrap !important;
+        overflow: visible;
+        width: auto;
+        text-align: center;
+}
+
+/* 뜻풀이 및 기록창 공통 스타일 */
+.meaning-area {
+        height: 30%;
+        width: 100%;
+        display: flex;
+        overflow: hidden;
+        table-layout: fixed;
+}
+
+.meaning-area-in {
+        flex: 1 1 50%;
+        width: 50%;
+        max-width: 50%;
+        border-right: 1px solid #ccc;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+        min-width: 0;
+}
+
+.meaning-dp {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+}
+
+.meaning-dp-div {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1vw;
+        word-break: break-all;
+        min-height: 0;
+}
+
+.extra-column {
+        display: none;
+        width: 30%;
+        height: 100%;
+        border-left: 1px solid black;
+        flex-direction: column;
+}
+
+.history-word {
+        padding: 1vw;
+        border-bottom: 1px solid #ddd;
+}
+
+.meaning-dp-tooltip {
+        position: fixed;
+        display: none;
+        width: 20%;
+        height: 25%;
+        z-index: 1000;
+        border: 2px solid #555;
+        flex-direction: column;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        overflow: hidden;
+}
+
+.meaning-dp-tooltip-title {
+        padding: 1vw;
+        border-bottom: 1px solid #ddd;
+        flex-shrink: 0;
+}
+
+.meaning-dp-div-tooltip {
+        font-size: 0.9rem;
+        flex: 1;
+        overflow-y: auto;
+        padding: 1vw;
+        word-break: break-all;
+        min-height: 0;
+}
+
+#chatDisplay, .meaning-dp-div, strong {
+        transition: none !important;
+        will-change: font-size;
+}
+
+/* 입력창 관련 스타일 */
+.input-area {
+        height: 7%;
+        min-height: 50px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0.5vw;
+        border-top: 1px solid #ccc;
+        gap: 0.5vw;
+        box-sizing: border-box;
+}
+
+.chat-input {
+        flex: 8;
+        height: 80%;
+        padding: 0 1vw;
+        font-size: 1.2vw;
+        min-size: 14px;
+}
+
+.button-one {
+        flex: 1.0;
+        height: 80%;
+        cursor: pointer;
+        font-size: 1vw;
+        min-size: 12px;
+        white-space: nowrap;
+}
+
+.button-two {
+        flex: 1.5;
+        height: 80%;
+        cursor: pointer;
+        font-size: 1vw;
+        min-size: 12px;
+        white-space: nowrap;
+}

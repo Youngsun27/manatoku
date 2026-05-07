@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+  <!-- src/main/resources/db.properties 읽기 -->
+  <properties resource="db.properties"/>
+  
+  <!-- 컬럼 매칭 편의성 세팅 -->
+  <settings>
+  		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+
+  <environments default="dev">
+    <environment id="dev">
+      <transactionManager type="JDBC"/>
+
+      <!-- 지금 단계: MyBatis 내장 커넥션 풀 사용 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+      </dataSource>
+
+    </environment>
+  </environments>
+
+  <!-- 매퍼 등록(다음 단계에서 파일 만들고 경로 맞출 예정) -->
+  <mappers>
+    <mapper resource="mapper/TestMapper.xml"/>
+    <mapper resource="mapper/UserMapper.xml"/>
+    <mapper resource="mapper/MemberMapper.xml"/>
+    <mapper resource="mapper/FriendsMapper.xml"/>
+    <mapper resource="mapper/ChatMapper.xml"/>
+  </mappers>
+
+</configuration>

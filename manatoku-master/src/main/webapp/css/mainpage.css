@@ -1,0 +1,138 @@
+@charset "UTF-8";
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+/* 배경이 끊기지 않도록 설정 */
+    overflow: hidden;
+}
+/* ======================
+   배경
+====================== */
+
+/* ======================
+   배경 및 컨테이너
+====================== */
+.main-wrapper {
+    width: 100%;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    padding: 20px; /* 전체적으로 상하좌우 20px 여백을 줌 */
+    box-sizing: border-box; /* 패딩이 높이에 포함되도록 설정 */
+    align-items: stretch;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    overflow: hidden;
+    gap: 20px; /* ★ 사이드바와 컨텐츠 사이의 간격을 20px로 고정 ★ */
+}
+
+
+
+/* 별 레이어 */ 
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* 은하수 바로 위에 배치 */
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 80px 120px, #fff, transparent),
+        radial-gradient(2px 2px at 150px 200px, #fff, transparent);
+    background-size: 250px 250px;
+    animation: starsMove 120s linear infinite;
+}
+
+
+/* 사이드바 수정 */
+.sidebar {
+    width: 315px;
+    flex: 0 0 315px;
+    /* margin 삭제 (부모의 padding과 gap이 대신함) */
+    margin: 0; 
+    height: 960px; /* 부모 패딩 제외한 꽉 찬 높이 */
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 5px 0 30px rgba(0, 0, 0, 0.25);
+    z-index: 3;
+}
+
+/* 컨텐츠 영역 수정 */
+.content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+/*     height: 100%; */
+}
+
+
+
+.main {
+
+    flex: 1;
+    width: 100%;    /* 가로 꽉 채우기 */
+    display: flex;
+    flex-direction: column;
+}
+
+#mainpage {
+    flex: 1;
+    width: 100%;
+}
+
+/* include되는 패널들 */
+/* 내부 패널 수정 */
+.content-panel {
+    flex: 1;
+    margin: 0px 20px 20px 0;  
+/*     height: calc(100vh - 40px); */
+	height: 960px;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 40px rgba(255, 255, 255, 0.3),
+        0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+
+
+/* ======================
+   테마 적용 시 사이드바 변경
+====================== */
+
+
+/* 갤럭시 테마일 때 사이드바 스타일 */
+body.galaxy-theme .sidebar {
+        /* 1. 완전한 흰색 배경 */
+    background: #ffffff !important;
+    /* background: linear-gradient(125deg, rgba(251, 194, 235, 0.8) 0%, rgba(166, 193, 238, 0.8) 100%) !important; */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important; /* 기존 #ccc 회색 보더를 연한 흰색으로 */
+    color: #ffffff;
+}
+
+/* 사이드바 내부의 텍스트가 있다면 흰색으로 강제 */
+body.galaxy-theme .sidebar * {
+}
+
+
+/* ======================
+   애니메이션
+====================== */
+
+/* 별이 움직이는 효과 */
+@keyframes starsMove {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 500px; }
+}
