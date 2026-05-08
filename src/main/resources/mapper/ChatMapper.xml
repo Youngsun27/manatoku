@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.manatoku.mapper.ChatMapper">
+
+	<!-- SELECT -->
+	<select id="findDirectRoomId" resultType="Integer">
+		SELECT room_id
+		FROM
+		(SELECT cr.room_id FROM chat_room cr
+		JOIN chat_room_member crm1 ON
+		cr.room_id = crm1.room_id
+		JOIN chat_room_member crm2 ON cr.room_id =
+		crm2.room_id
+		WHERE crm1.ucode = #{ucode}
+		AND crm2.ucode = #{friendUcode}
+		AND cr.room_type = 'DIRECT'
+		AND crm1.left_at is null
+		AND crm2.left_at is
+		null)
+		WHERE rownum = 1
+	</select>
+
+	<select id="findRoom" resultType="ChatRoom">
+		SELECT
+		cr.room_id,cr.title,cr.create_at
+		FROM chat_room cr
+		JOIN chat_room_member
+		crm on cr.room_id = crm.room_id
+		WHERE crm.ucode = #{ucode}
+		AND
+		cr.room_type = 'GROUP'
+		AND crm.left_at is null
+		ORDER BY crm.joined_at
+		DESC
+	</select>
+
+	<select id="selectRecentMessages" resultType="ChatMessage">
+		SELECT
+		t.msg_id,
+		t.room_id,
+		t.sender_ucode,
+		t.content,
+		t.created_at,
+		m.name AS sender_name
+		FROM (
+		SELECT msg_id, room_id, sender_ucode, content, created_at
+		FROM chat_message
+		WHERE room_id = #{roomId}
+		ORDER BY created_at DESC
+		) t
+		JOIN member m ON t.sender_ucode = m.ucode
+		WHERE ROWNUM &lt;= #{limit}
+		ORDER BY t.created_at ASC
+	</select>
+
+	<select id="selectUserSummary" resultType="Friends">
+		SELECT ucode, id,
+		name, icon, birth, email, phone
+		FROM member
+		WHERE ucode=#{friendUcode}
+	</select>
+
+	<select id="isUserInRoom" resultType="int">
+		SELECT count(*)
+		FROM
+		chat_room_member
+		WHERE room_id = #{roomId}
+		AND ucode = #{ucode}
+	</select>
+
+	<!--사용자의 그룹 ROLE 조회-->
+	<select id="selectUserRole" resultType="String">
+		SELECT role
+		FROM chat_room_member
+		WHERE room_id = #{roomId}
+		AND ucode = #{ucode}
+	</select>
+	<!-- 사용자 그룹의 인원수 조회 -->
+	<select id="groupMemberCount" resultType="int">
+		SELECT count(*)
+		FROM chat_room_member
+		WHERE room_id = #{roomId}
+	</select>
+	<!-- 그룹 멤버 리스트 조회 -->
+	<select id="getGroupMemList" resultType="ChatRoomMember">
+	SELECT cm.ucode,m.id,m.name,cm.role
+	FROM chat_room_member cm
+	JOIN member m
+	ON cm.ucode = m.ucode
+	WHERE cm.room_id = #{roomId}
+
+	</select>
+	<!-- UPDATE -->
+	<!-- 그룹명 변경-->
+	<update id="setGroupTitle">
+		UPDATE chat_room
+		SET title=#{title}
+		WHERE
+		room_id=#{roomId}
+	</update>
+
+	<!-- DELETE -->
+	<!-- 그룹 나가기 -->
+	<delete id="exitGroup">
+		DELETE FROM chat_room_member
+		WHERE room_id = #{roomId}
+		AND ucode = #{ucode}
+	</delete>
+	<!-- 그룹 삭제 -->
+	<delete id="deleteGroup">
+		DELETE FROM chat_room
+		WHERE room_id = #{roomId}
+	</delete>
+
+	<!-- INSERT -->
+	<insert id="insertChatRoomDirect">
+		insert into chat_room(room_type) values ('DIRECT')
+		<selectKey keyProperty="roomId" resultType="Integer"
+			order="AFTER">
+			SELECT seq_chat_room.CURRVAL FROM dual
+		</selectKey>
+	</insert>
+
+	<insert id="createGroup">
+		insert into chat_room(room_type) values ('GROUP')
+		<selectKey keyProperty="roomId" resultType="Integer"
+			order="AFTER">
+			SELECT seq_chat_room.CURRVAL FROM dual
+		</selectKey>
+	</insert>
+
+	<insert id="insertRoomMember">
+		INSERT INTO chat_room_member(room_id,ucode,role)
+		VALUES (#{roomId},#{ucode},#{role})
+	</insert>
+
+	<insert id="insertMessage">
+		INSERT INTO
+		chat_message(room_id,sender_ucode,content)
+		VALUES
+		(#{roomId},#{ucode},#{content})
+	</insert>
+
+
+
+</mapper>

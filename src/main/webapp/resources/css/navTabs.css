@@ -1,0 +1,168 @@
+.tabs{
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+.tabs .nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.tabs button{
+  width: 100%;
+  height: 38px;
+  font-size: 13px;
+  font-weight: 500;
+
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 12px;
+
+  background: rgba(0,0,0,0.45);
+  color: #ffffff;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tabs button:hover{
+  transform: scale(1.05);
+  background: #5b6cff;
+  box-shadow: 0 0 12px rgba(91,108,255,0.6);
+}
+
+css.tabs{
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+.tabs .nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.tabs button{
+  width: 100%;
+  height: 38px;
+  font-size: 13px;
+  font-weight: 500;
+
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 12px;
+
+  background: rgba(0,0,0,0.45);
+  color: #ffffff;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tabs button:hover{
+  transform: scale(1.05);
+  background: #5b6cff;
+  box-shadow: 0 0 12px rgba(91,108,255,0.6);
+}
+
+/* ✅ 테마 버튼 제외 - :not() 사용 */
+.tabs button:not(.theme-neon-btn) {
+  width: 100%;
+  height: 28px;
+  font-size: 13px;
+  font-weight: 500;
+
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 12px;
+
+  background: rgba(0,0,0,0.45);
+  color: #ffffff;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tabs button:not(.theme-neon-btn):hover {
+  transform: scale(1.05);
+  background: #5b6cff;
+  box-shadow: 0 0 12px rgba(91,108,255,0.6);
+}
+.tabs{
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+.tabs .nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ✅ 일반 버튼만 (테마 버튼 제외) */
+.tabs button:not(.theme-neon-btn) {
+  width: 100%;
+  height: 38px;
+  font-size: 13px;
+  font-weight: 500;
+
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 12px;
+
+  background: rgba(0,0,0,0.45);
+  color: #ffffff;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tabs button:not(.theme-neon-btn):hover {
+  transform: scale(1.05);
+  background: #5b6cff;
+  box-shadow: 0 0 12px rgba(91,108,255,0.6);
+}
+
+/* ===== 테마 전환 버튼 네온 스타일 ===== */
+.tabs .theme-neon-btn {
+  margin-top: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 8px 15px !important;
+  width: 100% !important;
+  height: 38px !important;
+  background: rgba(0, 210, 255, 0.05) !important;
+  border: 2px solid #00d2ff !important;
+  border-radius: 12px !important;
+  color: #00d2ff !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.7),
+  inset 0 0 10px rgba(0, 210, 255, 0.3) !important;
+  text-shadow: 0 0 10px rgba(0, 210, 255, 1) !important;
+}
+
+.tabs .theme-neon-btn:hover {
+  background: rgba(0, 210, 255, 0.2) !important;
+  box-shadow: 0 0 30px rgba(0, 210, 255, 1),
+  inset 0 0 15px rgba(0, 210, 255, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* 갤럭시 테마일 때 */
+body.galaxy-theme .tabs .theme-neon-btn {
+  border-color: #0066ff !important;
+  color: #0066ff !important;
+  background: rgba(0, 102, 255, 0.05) !important;
+  box-shadow: 0 0 15px rgba(0, 102, 255, 0.5),
+  inset 0 0 8px rgba(0, 102, 255, 0.2) !important;
+  text-shadow: none !important;
+}
+
+body.galaxy-theme .tabs .theme-neon-btn:hover {
+  background: rgba(0, 102, 255, 0.15) !important;
+  box-shadow: 0 0 25px rgba(0, 102, 255, 0.7),
+  inset 0 0 12px rgba(0, 102, 255, 0.3) !important;
+}

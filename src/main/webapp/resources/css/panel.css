@@ -1,0 +1,124 @@
+
+#panel{
+    flex: 1;
+    min-height: 470px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-title{
+    padding: 10px 12px;
+    font-weight: 700;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 12px;
+}
+
+.panel-title button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    color: #111827;
+    background: #fff;
+}
+
+.panel-list{
+    flex: 1;
+    min-height: 55px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* 친구/채팅방 버튼 */
+.panel-list .chat-btn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    text-align: left;
+}
+
+.panel-list .chat-btn:hover{
+    background: #f9fafb;
+}
+
+.panel-list .chat-btn .icon img{
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
+.panel-list .chat-btn .fname{
+    font-weight: 600;
+}
+
+.panel-list .chat-btn .fid{
+    margin-left: auto;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+/* 갤럭시 테마 적용 시 패널 스타일 */
+/* 1. 패널 전체 배경 전환 (가장 바깥쪽) */
+body.galaxy-theme #panel {
+    background: linear-gradient(135deg, #b399d1 0%, #e8f4fc 100%) !important;
+    backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 2. [추가] 제목 영역 ID 타겟팅 */
+body.galaxy-theme #panelName {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 3. [추가] 리스트 컨테이너 ID 타겟팅 */
+body.galaxy-theme #panelContainer {
+    background: transparent !important; /* 배경을 투명하게 해서 부모인 #panel의 우주 배경이 보이게 함 */
+}
+
+/* 4. [추가] 만약 .chat-btn 내부에 텍스트가 span이나 div로 감싸져 있다면 */
+body.galaxy-theme .chat-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important; /* 내부 모든 글자색 흰색 강제 */
+}
+
+/* 4. 친구/채팅방 버튼들 전환 */
+body.galaxy-theme .panel-list .chat-btn {
+    background: rgba(120, 120, 120, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+body.galaxy-theme .panel-list .chat-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 5. 텍스트 색상들 강제 변경 */
+body.galaxy-theme .chat-btn .fname,
+body.galaxy-theme .chat-btn .fid {
+    color: #ffffff !important;
+}
+
+body.galaxy-theme .chat-btn .fid {
+    opacity: 0.7; /* ID는 살짝 흐리게 */
+}

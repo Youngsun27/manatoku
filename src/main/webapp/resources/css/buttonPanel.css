@@ -1,0 +1,40 @@
+.friend-btn-wrap {
+    padding: 12px;
+    display: flex;
+    justify-content: center; 
+    gap: 10px;
+    color: #ffffff;
+
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+}
+
+
+.friend-btn-wrap a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 110px;
+    height: 38px;
+
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.5);
+
+    background: rgba(0,0,0,0.45);
+    color: #ffffff;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+
+.friend-btn-wrap a:hover {
+    transform: scale(1.05);
+    background: #5b6cff;
+box-shadow: 0 0 12px rgba(91,108,255,0.6);
+}
+

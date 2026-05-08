@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.manatoku.mapper.MemberMapper">
+  	
+  	<!-- SELECT -->
+  	<!-- 아이디 중복검사 -->
+	<select id="checkId" resultType="int">
+  		SELECT count(*)
+  		FROM member
+  		WHERE id=#{id}
+  	</select>
+  	<!-- 이메일 중복검사 -->
+  	<select id="checkEmail" parameterType="String" resultType="int">
+  		SELECT count(*)
+  		FROM member
+  		WHERE email=#{email}
+  	</select>
+  	<!-- 사용자 비밀번호 조회 -->
+  	<select id="getPassWithUcode" resultType="String">
+  		SELECT pass
+  		FROM member
+  		WHERE ucode=#{ucode}
+  	</select>
+  	<!-- Member 정보 조회 -->
+  	<select id="selectMemberById" resultType="Member">
+  		SELECT ucode,id,name,icon,pass,birth,email,phone
+  		FROM member
+  		WHERE id=#{id}
+  	</select>
+  	
+  	<select id="selectMemberByUcode" resultType="Member">
+  		SELECT ucode,id,name,icon,pass,birth,email,phone
+  		FROM member
+  		WHERE ucode=#{ucode}
+  	</select>
+  	
+  	<!-- UPDATE -->
+  	
+  	<update id="updateName">
+  		UPDATE member
+  		SET name=#{name}
+  		WHERE ucode=#{ucode}
+  	</update>
+  	
+  	<update id="updateMemberInfo">
+  		UPDATE member
+  		SET name=#{name}, pass=#{pass}, birth = TO_DATE(#{birth}, 'YY/MM/DD'), phone=#{phone}
+  		WHERE ucode=#{ucode}
+  	</update>
+  	
+  	<update id="updatePassword">
+  		UPDATE member
+  		SET pass=#{pass}
+  		WHERE ucode=#{ucode}
+  	</update>
+  	
+  	<!-- DELETE -->
+  	
+  	<delete id="deleteMember">
+  		DELETE
+  		FROM member
+  		WHERE ucode=#{ucode}
+  	</delete>
+  	
+  	<!-- INSERT -->
+  	
+  	<insert id="insertMember" parameterType="Member">
+  		INSERT INTO member (ucode,id,name,pass,birth,email,phone)
+  		VALUES (member_seq.NEXTVAL,#{id},#{name},#{pass},#{birth},#{email},#{phone})
+  	</insert>
+  		
+  </mapper>

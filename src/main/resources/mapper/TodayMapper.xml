@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.manatoku.mapper.TodayMapper">
+
+    <select id="getDailyKanjiList" resultType="com.manatoku.model.Today">
+        SELECT
+            k.id,
+            k.kanji,
+            k.grade
+        FROM todaykanji_kanji k
+                 JOIN todaykanji_list d ON k.id = d.kanji_id
+        ORDER BY d.display_order ASC
+    </select>
+
+    <select id="getMeaningsByKanjiId" resultType="string">
+        SELECT meaning_text
+        FROM todaykanji_meaning
+        WHERE kanji_id = #{kanjiId}
+        ORDER BY id ASC
+    </select>
+
+</mapper>

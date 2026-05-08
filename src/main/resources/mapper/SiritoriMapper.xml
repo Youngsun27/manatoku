@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.manatoku.mapper.SiritoriMapper">
+
+    <resultMap id="SiritoriMap" type="Siritori01">
+        <id property="wordId" column="WORD_ID" />
+        <result property="yomi" column="YOMI" />
+        <result property="word" column="WORD" />
+        <result property="endWord" column="END_WORD" />
+    </resultMap>
+
+    <select id="getNewGameId" resultType="long">
+        SELECT game_seq.NEXTVAL FROM DUAL
+    </select>
+
+    <select id="getWordByYomi" resultMap="SiritoriMap">
+        SELECT 
+            WORD_ID, 
+            END_WORD, 
+            YOMI, 
+            CASE WHEN TRIM(YOMI) = TRIM(WORD) THEN CAST('' AS NVARCHAR2(10)) ELSE WORD END AS WORD 
+        FROM DICTIONARY 
+        WHERE TRIM(YOMI) = #{yomi}
+    </select>
+
+    <select id="getWordMeanings" resultType="string">
+        SELECT MEANING 
+        FROM DICTIONARY_MEANING 
+        WHERE WORD_ID = #{wordId} 
+        ORDER BY MEANING_ORDER ASC
+    </select>
+
+    <select id="isDuplicate" resultType="int">
+        SELECT COUNT(*) 
+        FROM DICTIONARY_GAME 
+        WHERE GAME_ID = #{gameId} AND WORD_ID = #{wordId}
+    </select>
+
+    <insert id="insertGameWord">
+        INSERT INTO DICTIONARY_GAME (GAME_ID, WORD_ID) 
+        VALUES (#{gameId}, #{wordId})
+    </insert>
+
+    <select id="getRandomBotWord" resultMap="SiritoriMap">
+        SELECT * FROM (
+            SELECT 
+                d.WORD_ID, 
+                d.YOMI, 
+                d.END_WORD,
+                CASE WHEN TRIM(d.YOMI) = TRIM(d.WORD) THEN CAST('' AS NVARCHAR2(10)) ELSE d.WORD END AS WORD
+            FROM DICTIONARY d 
+            WHERE d.START_WORD = #{startWord} 
+              AND d.END_WORD != 'ん'
+              AND d.WORD_ID NOT IN (SELECT WORD_ID FROM DICTIONARY_GAME WHERE GAME_ID = #{gameId})
+            ORDER BY DBMS_RANDOM.VALUE
+        ) WHERE ROWNUM = 1
+    </select>
+
+</mapper>

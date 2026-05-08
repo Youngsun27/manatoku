@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+#header {
+    height: 60px;
+    background-color: #1e1e1e;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+#header .chatname a {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#header .menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+#header .menu li a {
+    color: white;
+    text-decoration: none;
+}
+
+#header .menu li a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.manatoku.mapper.CalendarMapper">
+
+    <resultMap id="CalendarMap" type="com.manatoku.model.Calendar">
+        <result property="calendar_id" column="CALENDAR_ID"/>
+        <result property="user_code" column="USER_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="content" column="CONTENT"/>
+        <result property="calendar_type" column="CALENDAR_TYPE"/>
+        <result property="start" column="START_DATETIME"/>
+        <result property="end" column="END_DATETIME"/>
+    </resultMap>
+
+    <select id="getEvents" resultMap="CalendarMap">
+        SELECT
+            CALENDAR_ID,
+            USER_CODE,
+            TITLE,
+            CONTENT,
+            CALENDAR_TYPE,
+            TO_CHAR(START_DATETIME, 'YYYY-MM-DD"T"HH24:MI:SS') AS START_DATETIME,
+            TO_CHAR(END_DATETIME, 'YYYY-MM-DD"T"HH24:MI:SS') AS END_DATETIME
+        FROM v_active_calendar
+        WHERE (USER_CODE = #{userCode} OR CALENDAR_TYPE = 'HOLIDAY')
+        ORDER BY START_DATETIME ASC
+    </select>
+
+    <!-- ✅ [추가] ID로 단일 일정 조회 (권한 검증용) -->
+    <select id="getEventById" resultMap="CalendarMap">
+        SELECT
+            CALENDAR_ID,
+            USER_CODE,
+            TITLE,
+            CONTENT,
+            CALENDAR_TYPE,
+            TO_CHAR(START_DATETIME, 'YYYY-MM-DD"T"HH24:MI:SS') AS START_DATETIME,
+            TO_CHAR(END_DATETIME, 'YYYY-MM-DD"T"HH24:MI:SS') AS END_DATETIME
+        FROM calendar
+        WHERE CALENDAR_ID = #{calendarId}
+          AND STATUS = 'ACTIVE'
+    </select>
+
+    <insert id="insertEvent" parameterType="com.manatoku.model.Calendar">
+        INSERT INTO calendar (
+            calendar_id,
+            user_code,
+            title,
+            content,
+            start_datetime,
+            end_datetime,
+            calendar_type,
+            status
+        )
+        VALUES (
+                   seq_calendar_id.NEXTVAL,
+                   #{user_code},
+                   #{title},
+                   #{content},
+                   TO_TIMESTAMP(#{start}, 'YYYY-MM-DD"T"HH24:MI:SS'),
+                   TO_TIMESTAMP(#{end}, 'YYYY-MM-DD"T"HH24:MI:SS'),
+                   #{calendar_type},
+                   'ACTIVE'
+               )
+    </insert>
+
+    <update id="updateEvent" parameterType="com.manatoku.model.Calendar">
+        UPDATE calendar
+        SET title = #{title},
+            content = #{content},
+            start_datetime = TO_TIMESTAMP(#{start}, 'YYYY-MM-DD"T"HH24:MI:SS'),
+            end_datetime = TO_TIMESTAMP(#{end}, 'YYYY-MM-DD"T"HH24:MI:SS'),
+            updated_at = CURRENT_TIMESTAMP
+        WHERE calendar_id = #{calendar_id}
+          AND status = 'ACTIVE'
+    </update>
+
+    <update id="deleteEvent">
+        UPDATE calendar
+        SET status = 'DELETED',
+            deleted_at = CURRENT_TIMESTAMP
+        WHERE calendar_id = #{calendar_id}
+    </update>
+
+</mapper>

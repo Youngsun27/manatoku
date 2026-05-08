@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.manatoku.mapper.FriendsMapper">
+   
+	<!-- SELECT -->
+  <select id="getFriendsList" resultType="FriendInfo">
+	SELECT m.ucode, m.id, m.name, m.icon
+	FROM friends f JOIN member m
+	ON (CASE WHEN f.sender=#{ucode} THEN f.receiver ELSE f.sender END)=m.ucode
+	WHERE (f.sender=#{ucode} OR f.receiver=#{ucode}) AND f.status='ACCEPT'
+  </select>
+	<!-- 친구 ID 검색 -->
+	<select id="searchMemberById" resultType="FriendInfo">
+		SELECT ucode, id, name, icon, email, phone, birth
+		FROM member
+		WHERE id LIKE '%' || #{id} || '%'
+	</select>
+	<!-- 친구 상태 확인 -->
+	<select id="checkFriendStatus" resultType="string">
+		SELECT status
+		FROM friends
+		WHERE (sender=#{sender} AND receiver=#{receiver})
+		OR (sender=#{receiver} AND receiver=#{sender})
+	</select>
+	<!-- 받은 친구 신청 -->
+	<select id="getReceiveRequest" resultType="Friends">
+		SELECT f.fcode,
+		m.ucode AS friendUcode,
+		m.id    AS friendId,
+		m.name  AS friendName,
+		m.icon  AS friendIcon
+		FROM friends f
+		JOIN member m ON f.sender = m.ucode
+		WHERE f.receiver=#{receiver}
+		AND f.status='WAIT'
+	</select>
+	<!-- 그룹 참가자 제외하여 친구 검색-->
+	<select id="groupMemAddList" resultType="FriendInfo">
+		SELECT DISTINCT m.ucode, m.id, m.name, m.icon
+		FROM friends f
+		JOIN member m
+		ON m.ucode =
+		CASE
+		WHEN f.sender = #{ucode} THEN f.receiver
+		ELSE f.sender
+		END
+		WHERE #{ucode} IN (f.sender, f.receiver)
+		AND f.status = 'ACCEPT'
+		AND NOT EXISTS (
+		SELECT 1
+		FROM chat_room_member crm
+		WHERE crm.ucode = m.ucode
+		AND crm.room_id = #{roomId})
+	</select>
+
+	<!-- UPDATE -->
+	<!-- 수락 / 거절 -->
+	<update id="updateFriendStatus">
+		UPDATE friends
+		SET status = #{status}
+		WHERE fcode = #{fcode}
+		AND receiver = #{ucode}
+	</update>
+
+	<!-- DELETE -->
+	<!-- 친구 삭제 -->
+	<delete id="deleteFriend">
+		DELETE FROM friends
+		WHERE (sender=#{sender} AND receiver=#{receiver})
+		OR (sender=#{receiver} AND receiver=#{sender})
+	</delete>
+
+	<!-- INSERT -->
+	<!-- 친구 신청 -->
+	<insert id="insertFriendRequest" parameterType="map">
+		INSERT INTO friends (fcode, sender, receiver, status)
+		VALUES (friends_seq.NEXTVAL, #{sender}, #{receiver}, 'WAIT')
+	</insert>
+
+</mapper>

@@ -1,0 +1,204 @@
+.grade-selector {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	padding: 20px;
+	border-radius: 10px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.grade-selector button {
+	background-color: #ffffff;
+	color: #333;
+	padding: 8px 15px;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: 0.3s;
+}
+
+.grade-selector button:hover {
+	background-color: #007bff;
+	color: white;
+	border-color: #007bff;
+}
+
+.welcome-container {
+	text-align: center;
+	padding: 50px;
+	border: 2px dashed #007bff;
+	border-radius: 15px;
+	margin: 20px auto;
+	max-width: 600px;
+	margin-top: 50px;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.main-layout-nazorikaki {
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+	margin-top: 20px;
+}
+
+.learning-area {
+	flex: 0 0 400px;
+}
+
+.welcome-container h2 {
+	color: #0044ff;
+}
+
+.welcome-container p {
+	color: #0066ff;
+	font-size: 1.3rem;
+}
+
+.nazorikaki-info-card {
+	border: 1px solid #ddd;
+	padding: 30px;
+	display: inline-block;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	min-width: 350px;
+}
+
+.yomikun {
+	color: #F0F0F0;
+	font-weight: bold;
+	margin-bottom: 10px;
+	font-size: 1.2rem;
+}
+
+.exam {
+	font-size: 18px;
+	color: #00ffff;
+	margin: 15px 0;
+	min-height: 24px;
+}
+
+#nazorikaki-target {
+	margin: 20px auto;
+	border: 1px dashed #bdc3c7;
+	width: 250px;
+	height: 250px;
+}
+
+.btn-group {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+button {
+	padding: 10px 18px;
+	cursor: pointer;
+	border-radius: 8px;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.5);
+	color: #004488;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+button:hover {
+	background-color: rgba(255, 255, 255, 0.8);
+	transform: translateY(-2px);
+}
+
+button.toggle-btn {
+	background-color: rgba(255, 215, 0, 0.7);
+}
+button.toggle-btn:hover {
+	background-color: rgba(255, 215, 0, 1);
+}
+
+.history-sidebar {
+	flex: 0 0 250px;
+	border-left: 4px solid #2980b9;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+	max-height: 500px;
+	overflow-y: auto;
+	color: #FFFFFF;
+}
+
+.history-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+	font-size: 1.1rem;
+}
+
+.history-item .nazorikaki-char {
+	font-weight: bold;
+	color: #2c3e50;
+}
+
+.history-item .nazorikaki-score {
+	color: #e67e22;
+}
+
+.score-container {
+	color: #FFFF00;
+}
+
+
+/* ======================
+   테마 변경 시
+====================== */
+
+
+/* 배경도 연핑크/연하늘 그라데이션으로 */
+body.galaxy-theme .main-layout-nazorikaki {
+	background: linear-gradient(135deg, #fce4ec 0%, #e3f2fd 100%) !important;
+}
+
+/* 정보 카드 */
+body.galaxy-theme .nazorikaki-info-card {
+	background: rgba(255, 255, 255, 0.95);
+	border-color: #1a1a2e !important;
+}
+
+/* 읽기/힌트 텍스트 */
+body.galaxy-theme .yomikun {
+	color: #8a8a8e !important;
+}
+
+body.galaxy-theme .exam {
+	color: #6b7280; !important;
+}
+/* 환영 컨테이너 */
+body.galaxy-theme .welcome-container {
+	background-color: rgba(255, 255, 255, 0.9) !important;
+	border-color: #1a1a2e !important;
+}
+
+body.galaxy-theme .welcome-container h2,
+body.galaxy-theme .welcome-container p {
+	color: #1a1a2e !important;
+}
+
+/* 점수 표시 */
+body.galaxy-theme .score-container {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+/* 히스토리 사이드바 */
+body.galaxy-theme .history-sidebar {
+	background: linear-gradient(135deg, #d5c1e8 0%, #c5dff5 100%) !important;
+}
+
+body.galaxy-theme .history-item .nazorikaki-char {
+	color: #1a1a2e !important;
+	font-weight: 700;
+}
+
+body.galaxy-theme .history-item .nazorikaki-score {
+	color: #0f3460 !important;
+	font-weight: 600;
+}

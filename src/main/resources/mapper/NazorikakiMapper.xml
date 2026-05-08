@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.manatoku.mapper.NazorikakiMapper">
+
+    <select id="getAllTexts" resultType="Nazorikaki">
+        SELECT kanji AS content, yomikun, exam 
+        FROM kanjiwrite
+    </select>
+
+    <select id="getNazorikakisByGrade" parameterType="int" resultType="Nazorikaki">
+        SELECT kanji AS content, yomikun, exam 
+        FROM kanjiwrite 
+        WHERE grade = #{grade}
+    </select>
+
+</mapper>

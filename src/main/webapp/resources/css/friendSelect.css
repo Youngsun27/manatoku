@@ -1,0 +1,138 @@
+@charset "UTF-8";
+/* ===== 기존 스타일 유지 ===== */
+*{
+    margin:0; padding:0; box-sizing:border-box;
+    font-family:"Lucida Sans Unicode", sans-serif;
+}
+body{height:100vh; overflow:hidden;}
+.login-wrapper{
+    position:relative;
+    width:100%; height:100vh;
+    background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
+}
+.stars{
+    position:absolute;
+    width:100%; height:100%;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 80px 120px, #fff, transparent),
+        radial-gradient(2px 2px at 150px 200px, #fff, transparent);
+    background-size:250px 250px;
+    animation:starsMove 120s linear infinite;
+}
+.shooting-stars{position:absolute;width:100%;height:100%;}
+.shooting-star{
+    position:absolute;top:-20%;right:-20%;
+    width:6px;height:6px;background:white;
+    border-radius:50%;box-shadow:0 0 15px white;
+    transform:rotate(-45deg);opacity:0;
+    animation:shooting 3.5s linear infinite;
+}
+.shooting-star::after{
+    content:"";position:absolute;left:6px;top:50%;
+    width:160px;height:2px;
+    background:linear-gradient(to right, white, transparent);
+}
+.shooting-star:nth-child(2){top:-10%;right:10%;animation-delay:1.5s;}
+.shooting-star:nth-child(3){top:10%;right:30%;animation-delay:3s;}
+.shooting-star:nth-child(4){top:-25%;right:50%;animation-delay:4.5s;}
+.shooting-star:nth-child(5){top:-5%;right:65%;animation-delay:6s;}
+.shooting-star:nth-child(6){top:15%;right:80%;animation-delay:7.5s;}
+
+/* 카드 */
+.login-card{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 380px;
+    max-height: 80vh;
+    padding: 30px;
+    overflow-y: auto;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 0 40px rgba(255,255,255,0.3);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+}
+.login-title{
+    text-align:center; 
+     font-size: 36px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.7);
+}
+
+/* ===== 친구 신청 카드 ===== */
+.friend-card{
+    width:100%;
+    background:rgba(0,0,0,0.45);
+    border-radius:16px;
+    padding:14px;
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    border:1px solid rgba(255,255,255,0.35);
+    color:#fff;
+    
+    
+}
+.friend-card img{
+    width:48px;height:48px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,0.6);
+}
+.friend-info{
+    flex:1;
+    text-align: left;
+}
+.friend-info .name{
+    font-weight:bold;
+}
+.friend-info .id{
+    font-size:13px;
+    opacity:0.85;
+}
+
+/* 버튼 */
+.friend-actions{
+    display:flex;
+    gap:6px;
+}
+.friend-actions button{
+    height:32px;
+    padding:0 12px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    color:#fff;
+}
+.accept{background:#3f4db8;}
+.reject{background:#7b2cbf;}
+.accept:hover{background:#5b6cff;}
+.reject:hover{background:#9d4edd;}
+
+.login-card a {
+    margin-top: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+@keyframes shooting{
+    0%{transform:translate(0,0) rotate(-45deg);opacity:0;}
+    10%{opacity:1;}
+    100%{transform:translate(-900px,900px) rotate(-45deg);opacity:0;}
+}
+@keyframes starsMove{
+    from{background-position:0 0;}
+    to{background-position:1000px 500px;}
+}

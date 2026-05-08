@@ -1,0 +1,251 @@
+@charset "UTF-8";
+
+/* =====================
+    기본 레이아웃 설정
+   ===================== */
+
+/* 캘린더 메인 컨테이너 */
+#calMain {
+	flex: 1;
+	width: 100%; /*가로 꽉 채우기*/
+	display: flex;
+	flex-direction: column;
+}
+
+/* 링크 밑줄 제거 */
+#calendar a {
+	text-decoration: none !important;
+}
+
+/* =====================
+    날짜 색상 설정
+   ===================== */
+
+/* 일요일 빨간색 */
+.fc-day-sun .fc-col-header-cell-cushion, 
+.fc-day-sun .fc-daygrid-day-number {
+	color: #ff0000 !important;
+}
+
+/* 토요일 빨간색 */
+.fc-day-sat .fc-col-header-cell-cushion, 
+.fc-day-sat .fc-daygrid-day-number {
+	color: #ff0000 !important;
+}
+
+/* =====================
+    공휴일 스타일
+   ===================== */
+
+/* 공휴일 이벤트 박스 제거 및 텍스트 강조 */
+.fc-event.holiday-event, 
+.fc-daygrid-event.holiday-event {
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+.holiday-event .fc-event-title, 
+.holiday-event .fc-event-main {
+	color: #ff0000 !important;
+	font-weight: bold !important;
+}
+
+/* 리스트 뷰 공휴일 스타일 */
+.fc-list-event.holiday-event {
+	background-color: #fff0f0 !important;
+}
+
+.fc-list-event.holiday-event .fc-list-event-title, 
+.fc-list-event.holiday-event .fc-list-event-dot {
+	color: #ff0000 !important;
+	border-color: #ff0000 !important;
+}
+
+/* =====================
+    캘린더 칸 크기 고정
+   ===================== */
+
+/* 칸 높이를 부모 영역에 맞춤 */
+.fc .fc-daygrid-day-frame {
+	height: 100% !important;
+	min-height: 0 !important;
+	overflow: hidden !important;
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+/* 일정 영역이 남은 높이 차지 */
+.fc-daygrid-day-events {
+	flex-grow: 1 !important;
+	overflow: hidden !important;
+}
+
+/* 테이블 레이아웃 고정 */
+.fc-scrollgrid-sync-table {
+	table-layout: fixed !important;
+}
+
+/* 더보기 팝업 z-index */
+.fc-popover {
+	z-index: 1060 !important;
+}
+
+/* 일정 간격 조정 */
+.fc-daygrid-event-harness {
+	margin-bottom: 1px !important;
+}
+
+/* =====================
+    캘린더 패널 레이아웃
+   ===================== */
+
+/* 캘린더 패널 중앙 정렬 */
+#callendarPanel {
+	margin: 0 auto;
+	padding: 20px;
+	background-color: transparent !important;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* 캘린더 본체 - 흰색 배경 및 입체감 */
+#calendar {
+	max-width: 95% !important;
+	width: 100%;
+	margin: 0 auto;
+	background-color: #ffffff !important;
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	overflow-y: auto; /*일정 넘칠 시 생기는, 스크롤바 설정*/
+	overflow-x: hidden; /*일정 넘칠 시 생기는, 스크롤바 설정*/
+}
+
+/* =====================
+    공휴일 날짜 색상
+   ===================== */
+
+/* 공휴일이 있는 날짜 숫자 빨간색 */
+.fc-daygrid-day:has(.holiday-event) .fc-daygrid-day-number {
+	color: #ff0000 !important;
+	font-weight: bold;
+}
+
+/* =====================
+    모달 스타일 (Modal)
+   ===================== */
+
+/* 모달 오버레이 (배경) */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 2000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 모달 콘텐츠 박스 */
+.modal-content {
+	background-color: #ffffff;
+	margin: 10% auto;
+	padding: 25px;
+	border-radius: 12px;
+	width: 400px;
+	max-width: 90%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+	border: none;
+	position: relative;
+}
+
+/* 모달 내부 라벨 및 입력 필드 */
+.modal-content label {
+	display: block;
+	margin-top: 10px;
+	font-weight: bold;
+	color: #333;
+}
+
+.modal-content input,
+.modal-content textarea {
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+/* 모달 하단 버튼 영역 */
+.modal-footer {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+/* 버튼 기본 스타일 */
+.btn {
+	padding: 8px 16px;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+/* =====================
+    텍스트 색상 및 최적화
+   ===================== */
+
+/* 캘린더 화면 레이아웃 최적화 */
+#callendarPanel {
+	background-color: transparent !important;
+	padding: 10px !important;
+}
+
+#calendar {
+	max-width: 100% !important;
+	height: 90vh;
+	min-height: 800px;
+}
+
+/* 평일 날짜 숫자 및 요일 헤더 검정색 고정 */
+.fc .fc-col-header-cell-cushion,
+.fc .fc-daygrid-day-number,
+.fc .fc-toolbar-title {
+	color: #000000 !important;
+}
+
+/* 오늘(Today) 날짜 강조 */
+.fc .fc-day-today .fc-daygrid-day-number {
+	color: #000000 !important;
+	font-weight: bold;
+}
+
+/* 주말 및 공휴일 빨간색 강제 적용 */
+.fc-day-sun .fc-col-header-cell-cushion,
+.fc-day-sun .fc-daygrid-day-number,
+.fc-day-sat .fc-col-header-cell-cushion,
+.fc-day-sat .fc-daygrid-day-number,
+.holiday-event .fc-event-title,
+.holiday-event .fc-event-main,
+.fc-daygrid-day:has(.holiday-event) .fc-daygrid-day-number {
+	color: #ff0000 !important;
+}
+
+/* 테마 변경 시에도 주말 빨간색 유지 */
+body.galaxy-theme .fc-day-sun .fc-col-header-cell-cushion,
+body.galaxy-theme .fc-day-sun .fc-daygrid-day-number,
+body.galaxy-theme .fc-day-sat .fc-col-header-cell-cushion,
+body.galaxy-theme .fc-day-sat .fc-daygrid-day-number {
+	color: #ff0000 !important;
+}
