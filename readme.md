@@ -1,7 +1,7 @@
 # Manatoku Spring Project
 
 ## URL
-(http://manatoku.duckdns.org/user/reg)
+(http://manatoku.duckdns.org/)
 
 ## ログイン ID/PW
 ID : manatoku
