@@ -1,10 +1,13 @@
 # Manatoku Spring Project
 
-## 배포링크 
+## URL
 (http://manatoku.duckdns.org/user/reg)
 
+## ログイン ID/PW
+ID : manatoku
+PW : a1234567!
 
-## 실행 전 필수 설정
+## 配布前のチェック
 
 `src/main/resources/db.properties` 파일을 직접 생성해주세요.
 
@@ -16,7 +19,7 @@ db.username=DB아이디
 db.password=DB비밀번호
 ```
 
-## 실행 방법
+## 配布前のチェック2
 
 1. 레포지토리 clone
 2. `db.properties` 파일 생성 후 DB 정보 입력
