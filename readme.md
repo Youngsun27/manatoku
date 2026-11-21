@@ -1,7 +1,7 @@
 # Manatoku Spring Project
 
 ## 배포링크 
-https://manatoku.today
+(http://manatoku.duckdns.org/user/reg)
 
 
 ## 실행 전 필수 설정
