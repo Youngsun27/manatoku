@@ -21,7 +21,7 @@ db.password=DB PW
 
 ## 配布前のチェック2
 
-1. 레포지토리 clone
-2. `db.properties` 파일 생성 후 DB 정보 입력
-3. 서버 실행
+1. リポジトリを clone
+2. `db.properties` ファイルを作成し、DB情報を入力する
+3. サーバーを起動する
 
