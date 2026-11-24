@@ -162,23 +162,10 @@ function logRender(type, name, content, detectedDate, createdAt) {
 		actionsDiv.className = 'message-actions';
 
 		var calBtn = document.createElement('button');
-		calBtn.className = 'btn-cal';
+		calBtn.className = 'btn-cal';                  /* document 감시자가 이 class로 찾아요 */
 		calBtn.textContent = '🗓 予定に登録';
-		calBtn.setAttribute('data-title', content);
+		calBtn.setAttribute('data-title', content);    /* document 감시자가 이 값을 꺼내요 */
 		calBtn.setAttribute('data-date', detectedDate);
-
-		/* 버튼 클릭 시 기존 openCalendarFromChat 함수 호출 */
-		calBtn.onclick = function() {
-			var btnTitle = this.getAttribute('data-title');
-			var btnDate = this.getAttribute('data-date');
-
-			/* calendar.js의 openCalendarFromChat 함수 사용 */
-			if (typeof OpenCalendarFromChat === 'function') {
-				OpenCalendarFromChat(btnTitle, btnDate);
-			} else {
-				alert('error');
-			}
-		};
 
 		actionsDiv.appendChild(calBtn);
 		div.appendChild(actionsDiv);
@@ -186,7 +173,6 @@ function logRender(type, name, content, detectedDate, createdAt) {
 
 	area.appendChild(div);
 	area.scrollTop = area.scrollHeight;
-
 
 }
 
