@@ -1,2 +1,9 @@
 src/main/resources/db.properties
 target/
+
+.env*
+!.env.example
+application-secret*.yml
+*.key
+*.pem
+*.war
